@@ -1,6 +1,8 @@
-<!-- docs/_sidebar.md -->
+- [Ana Sayfa](README.md)
 
-* Books
-    * Clean Code
-        * [Chapter 1](./docs/cleanCode/chapter1.md)
+- **Couchbase**
+  - [Magma](couchbase/magma.md)
 
+- **Books**
+  - **Clean Code**
+    - [Chapter 1](cleanCode/chapter1.md)
