@@ -1,21 +1,26 @@
 # Engineering Notes
 
-Backend sistemleri inşa ederken öğrendiğim pratikleri, karar kayıtlarını ve teknik notları burada topluyorum. Odak, üretimde çalışan sistemlerin güvenilirlik, ölçeklenebilirlik ve işletilebilirlik dengesi.
+Practical notes on building dependable backend systems.
 
-## Odak alanları
+> Reliability, scalability, and operability are product features—not afterthoughts.
 
-- **Backend engineering:** API tasarımı, servis sınırları, hata yönetimi ve performans.
-- **Distributed systems:** Tutarlılık, dayanıklılık, mesajlaşma ve dağıtık koordinasyon.
-- **Go:** Sade servisler, eşzamanlılık modelleri ve üretim araçları.
-- **Couchbase:** Veri modelleme, sorgu performansı ve depolama motorları.
-- **PostgreSQL:** Şema tasarımı, indeksleme, sorgu planları ve güvenilir işletim.
-- **Elasticsearch:** Arama modelleme, indeks yaşam döngüsü ve gözlemlenebilirlik.
-- **Kafka:** Olay güdümlü mimariler, tüketici grupları ve teslimat garantileri.
-- **Observability:** Metrikler, loglar, trace’ler ve anlamlı uyarılar.
+## Focus areas
 
-## Yazılar
+- **Backend engineering** — APIs, service boundaries, failure handling, and performance.
+- **Distributed systems** — consistency, resilience, messaging, and coordination.
+- **Go** — small services, concurrency patterns, and production tooling.
+- **Data systems** — Couchbase, PostgreSQL, and Elasticsearch.
+- **Event streaming** — Kafka-based architectures and delivery guarantees.
+- **Observability** — metrics, logs, traces, and actionable alerts.
 
-- [Couchbase Magma](couchbase/magma.md) — Couchbase’in Magma storage engine yaklaşımına dair notlar.
-- [Clean Code · Chapter 1](cleanCode/chapter1.md) — Okunabilir ve sürdürülebilir kod üzerine notlar.
+## Latest this week
 
-Bu alan düzenli olarak yeni yazılarla güncellenecek.
+- [Couchbase Magma](couchbase/magma.md)  
+  A compact comparison of Magma and Couchstore for large, write-heavy workloads.
+
+- [Clean Code · Chapter 1](cleanCode/chapter1.md)  
+  Notes on writing code that teams can read, change, and trust.
+
+## Reading map
+
+Start with the latest notes, then browse the topic groups in the left sidebar. New writing will be added here as it is published.

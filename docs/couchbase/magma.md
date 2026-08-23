@@ -1,20 +1,33 @@
-# Introduction 
+# Couchbase Magma
 
-Couchbase db platform iki farklı storage mekanizmasını destekler. Default olarak Couchstore ve Magma. 
-- Couchstore belleğe sığabilen veri kümeleriyle çalışması için tasarlanmıştır
-- Magma, belleğe sığmayan daha büyük veri kümelerinde yüksek performans gösterecek şekilde tasarlanmıştır
+Magma is Couchbase's storage engine for large, write-heavy datasets. It is designed to keep storage efficient when the working set is much larger than available memory.
 
-Magma, Couchbase'ın yeni depolama motoru, büyük veri setleri ve yoğun yazma yükleri için optimize edilmiştir. Magma, veri yoğunluğunu ve düğüm başına yazma performansını artırmak, yazma amplifikasyonunu (WA) azaltmak ve SSD'nin ömrünü uzatmak için tasarlanmıştır. Performans testleri, Magma'nın Couchstore ve RocksDB'den daha iyi performans gösterdiğini, özellikle bellekte sığmayan veri setleri için yazma yoğunluğu yüksek YCSB iş yüklerinde üstün olduğunu göstermiştir​[](https://www.couchbase.com/blog/magma-next-gen-document-storage-engine/)​.
+> Choose the engine around the workload, not around a default.
 
+## Couchstore vs. Magma
 
-| Criteria                     | Couchstore                                                                     | Magma                                                                                                    |
-|------------------------------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| Minimum bucket memory quota  | 100MB                                                                          | 1GB                                                                                                      |
-| Minimum memory to data ratio | 10%                                                                            | 1%                                                                                                       |
-| Maximum data per node        | 3TB                                                                            | 10TB                                                                                                     |
-| Data size optimization       | Best when the working dataset can fit into memory                              | Best when the working set is much larger than the available memory and you need disk access speed only   |
-| Store and access             | Access data up to ~ 1TB                                                        | Store and access several terabytes of data                                                               |
-| Hardware                     | Can run on low-end hardware                                                    | Quality hardware is preferred                                                                            |
-| Supported services           | All services including full-text search, eventing, and analytics are available | All services including full-text search, eventing, and analytics are available with the 7.1.2 GA release |
-| Data persistence             | Most data is accessed from the memory cache                                    | Applications need large amounts of persistent, durable data                                              |
-| Use cases                    | Use case primarily requires memory access                                      | Use case primarily requires disk access                                                                  |
+Couchstore is a strong fit when the active working set can largely stay in memory. Magma is intended for larger datasets where disk access and write amplification become primary concerns.
+
+| Criterion | Couchstore | Magma |
+| --- | --- | --- |
+| Minimum bucket memory quota | 100 MB | 1 GB |
+| Minimum memory-to-data ratio | 10% | 1% |
+| Maximum data per node | ~3 TB | ~10 TB |
+| Best fit | Working set fits mostly in memory | Working set substantially exceeds memory |
+| Storage access | Memory-cache oriented | Disk-access oriented |
+| Hardware | Can run on lower-end hardware | Benefits from higher-quality hardware |
+| Typical use | Memory-led access patterns | Large, durable, write-heavy data |
+
+## Why Magma matters
+
+Magma aims to:
+
+- increase storage density and write throughput per node;
+- reduce write amplification; and
+- extend SSD lifetime under sustained write load.
+
+For a deeper background, see Couchbase's [Magma storage engine overview](https://www.couchbase.com/blog/magma-next-gen-document-storage-engine/).
+
+## Rule of thumb
+
+Use Magma when capacity and sustained writes matter more than keeping the entire active dataset in memory. Validate the choice with your own data shape, access pattern, latency budget, and recovery requirements.

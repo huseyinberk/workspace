@@ -1,44 +1,82 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hüseyin Berk'in backend engineering, distributed systems ve veri altyapıları üzerine teknik notları." />
-  <title>Hüseyin Berk · Engineering Notes</title>
+  <meta name="description" content="Notes on backend engineering, distributed systems, and production data infrastructure." />
+  <title>Engineering Notes</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
   <style>
-    :root { --theme-color: #0f766e; --sidebar-width: 280px; }
-    body { color: #1f2937; }
-    .sidebar { border-right: 1px solid #e5e7eb; padding-top: 1.25rem; }
-    .sidebar-nav > ul > li > p { color: #111827; font-weight: 700; letter-spacing: .02em; }
-    .sidebar a { color: #4b5563; }
+    :root {
+      --theme-color: #0f766e; --sidebar-width: 290px; --page-bg: #ffffff;
+      --surface: #f8fafc; --text: #1f2937; --heading: #111827; --muted: #64748b;
+      --border: #e2e8f0; --code-bg: #f1f5f9;
+    }
+    html[data-theme="dark"] {
+      --theme-color: #5eead4; --page-bg: #0f172a; --surface: #111827;
+      --text: #d1d5db; --heading: #f8fafc; --muted: #94a3b8;
+      --border: #334155; --code-bg: #1e293b;
+    }
+    body, .content { background: var(--page-bg); color: var(--text); }
+    .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding-top: 1.25rem; }
+    .sidebar-nav > ul > li > p { color: var(--heading); font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .sidebar .app-name-link { color: var(--heading); font-size: 1.1rem; }
+    .sidebar a { color: var(--muted); font-size: .92rem; }
     .sidebar a:hover, .sidebar li.active > a { color: var(--theme-color); }
-    .app-nav a { color: #0f766e; }
-    .markdown-section { max-width: 900px; padding: 3rem 2.5rem 5rem; }
-    .markdown-section h1 { color: #111827; font-size: 2.35rem; letter-spacing: -.04em; }
-    .markdown-section h2 { margin-top: 2.5rem; color: #111827; }
-    .markdown-section a { color: #0f766e; }
-    .search .results-panel { border-radius: 8px; }
+    .markdown-section { max-width: 820px; padding: 3.5rem 2.5rem 6rem; color: var(--text); font-size: 1rem; line-height: 1.8; }
+    .markdown-section h1, .markdown-section h2, .markdown-section h3 { color: var(--heading); }
+    .markdown-section h1 { font-size: 2.3rem; letter-spacing: -.045em; margin-bottom: .75rem; }
+    .markdown-section h2 { border-bottom: 1px solid var(--border); padding-bottom: .4rem; margin-top: 2.75rem; }
+    .markdown-section a, .app-nav a { color: var(--theme-color); }
+    .markdown-section blockquote { border-left-color: var(--theme-color); color: var(--muted); }
+    .markdown-section code, .markdown-section pre { background: var(--code-bg); color: var(--text); }
+    .markdown-section table tr { border-top-color: var(--border); }
+    .markdown-section table td, .markdown-section table th { border-color: var(--border); }
+    .markdown-section table tr:nth-child(2n) { background: var(--surface); }
+    .search input { background: var(--page-bg); border-color: var(--border); color: var(--text); }
+    .search .results-panel { border-radius: 8px; background: var(--page-bg); border-color: var(--border); }
+    #theme-toggle {
+      position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 20; border: 1px solid var(--border);
+      border-radius: 999px; background: var(--surface); color: var(--text); cursor: pointer;
+      font: 600 .85rem/1 system-ui, sans-serif; padding: .65rem .9rem; box-shadow: 0 6px 20px rgba(15, 23, 42, .15);
+    }
+    #theme-toggle:hover { border-color: var(--theme-color); color: var(--theme-color); }
     @media screen and (max-width: 768px) {
-      .markdown-section { padding: 2rem 1.25rem 4rem; }
+      .markdown-section { padding: 2rem 1.25rem 5rem; }
       .markdown-section h1 { font-size: 1.9rem; }
+      #theme-toggle { right: 1rem; bottom: 1rem; }
     }
   </style>
 </head>
 <body>
-  <div id="app">Yükleniyor…</div>
+  <div id="app">Loading…</div>
+  <button id="theme-toggle" type="button" aria-label="Switch colour theme"></button>
   <script>
+    (function () {
+      const storedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+      const root = document.documentElement;
+      const button = document.getElementById('theme-toggle');
+      function applyTheme(nextTheme) {
+        root.dataset.theme = nextTheme;
+        button.textContent = nextTheme === 'dark' ? '☀ Light mode' : '☾ Dark mode';
+        button.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+      }
+      applyTheme(theme);
+      button.addEventListener('click', function () {
+        const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', nextTheme);
+        applyTheme(nextTheme);
+      });
+    })();
     window.$docsify = {
-      name: 'Hüseyin Berk',
+      name: 'This Week',
       repo: 'huseyinberk/workspace',
       loadSidebar: true,
       subMaxLevel: 2,
       auto2top: true,
-      search: {
-        placeholder: 'Yazılarda ara',
-        noData: 'Sonuç bulunamadı.',
-        depth: 3
-      }
+      search: { placeholder: 'Search notes', noData: 'No results found.', depth: 3 }
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
