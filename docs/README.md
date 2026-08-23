@@ -1,26 +1,14 @@
-# Engineering Notes
+# Working Notes
 
-Practical notes on building dependable backend systems.
-
-> Reliability, scalability, and operability are product features—not afterthoughts.
-
-## Focus areas
-
-- **Backend engineering** — APIs, service boundaries, failure handling, and performance.
-- **Distributed systems** — consistency, resilience, messaging, and coordination.
-- **Go** — small services, concurrency patterns, and production tooling.
-- **Data systems** — Couchbase, PostgreSQL, and Elasticsearch.
-- **Event streaming** — Kafka-based architectures and delivery guarantees.
-- **Observability** — metrics, logs, traces, and actionable alerts.
-
-## Latest this week
-
-- [Couchbase Magma](couchbase/magma.md)  
-  A compact comparison of Magma and Couchstore for large, write-heavy workloads.
-
-- [Clean Code · Chapter 1](cleanCode/chapter1.md)  
-  Notes on writing code that teams can read, change, and trust.
-
-## Reading map
-
-Start with the latest notes, then browse the topic groups in the left sidebar. New writing will be added here as it is published.
+<div class="note-list">
+  <a class="note-card" href="#/couchbase/magma">
+    <span class="note-card-date">August 2026</span>
+    <span class="note-card-title">Couchbase Magma</span>
+    <span class="note-card-summary">A short comparison of storage engines for large, write-heavy workloads.</span>
+  </a>
+  <a class="note-card" href="#/cleanCode/chapter1">
+    <span class="note-card-date">August 2026</span>
+    <span class="note-card-title">Clean Code · Chapter 1</span>
+    <span class="note-card-summary">Ideas worth keeping about code that is easier to read, change, and trust.</span>
+  </a>
+</div>

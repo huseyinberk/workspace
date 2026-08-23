@@ -1,5 +1,7 @@
 # Couchbase Magma
 
+<p class="note-meta">August 2026</p>
+
 Magma is Couchbase's storage engine for large, write-heavy datasets. It is designed to keep storage efficient when the working set is much larger than available memory.
 
 > Choose the engine around the workload, not around a default.

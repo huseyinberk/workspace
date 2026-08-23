@@ -1,5 +1,7 @@
 # Clean Code · Chapter 1
 
+<p class="note-meta">August 2026</p>
+
 > Code is read far more often than it is written.
 
 ## The central idea
