@@ -4,124 +4,314 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A personal record of things learned while building software." />
-  <title>Working Notes</title>
+  <title>Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
   <style>
     :root {
-      --theme-color: #2563eb; --sidebar-width: 240px; --layout-offset: max(2rem, calc((100vw - 1440px) / 2)); --page-bg: #ffffff;
-      --surface: #ffffff; --text: #3f3f46; --heading: #18181b; --muted: #71717a;
-      --border: #e4e4e7; --code-bg: #f4f4f5; --code-text: #27272a;
-      --hover: #f4f4f5; --quote-bg: #fafafa; --note-bg: #ffffff;
+      --page: #181c1f;
+      --surface: #1e2124;
+      --surface-hover: #252a2e;
+      --text: #d4d4d4;
+      --heading: #ffffff;
+      --muted: #a2a9b9;
+      --border: #30363d;
+      --accent: #99daff;
+      --link: #f76a8d;
+      --code: #121517;
+      --sidebar-width: 270px;
     }
-    html[data-theme="dark"] {
-      --theme-color: #93c5fd; --page-bg: #111111; --surface: #111111;
-      --text: #d4d4d8; --heading: #fafafa; --muted: #a1a1aa;
-      --border: #27272a; --code-bg: #1d1d1f; --code-text: #e4e4e7;
-      --hover: #1d1d1f; --quote-bg: #18181b; --note-bg: #161618;
+
+    * { box-sizing: border-box; }
+    html, body, #app { min-height: 100%; }
+    body {
+      background: var(--page);
+      color: var(--text);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.75;
     }
-    body, .content { background: var(--page-bg); color: var(--text); }
-    body, button, input { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 1.5rem .55rem; }
-    .sidebar-nav { margin: 1.5rem 0 0; }
+
+    .sidebar {
+      background: var(--page);
+      border-right: 1px solid var(--border);
+      color: var(--text);
+      padding: 24px 16px 36px;
+      width: var(--sidebar-width);
+    }
+
+    .sidebar .app-name {
+      border-bottom: 1px solid var(--border);
+      margin: 0 0 18px;
+      padding: 0 4px 17px;
+    }
+
+    .sidebar .app-name-link {
+      color: var(--heading);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+
+    .sidebar .app-name-link::before {
+      color: var(--accent);
+      content: "/// ";
+    }
+
+    .sidebar-nav { margin: 0; }
     .sidebar-nav ul, .sidebar-nav li { margin: 0; }
-    .sidebar-nav li { line-height: 1.3; }
-    .sidebar .app-name-link { color: var(--heading); font-size: .875rem; font-weight: 650; letter-spacing: -.01em; padding-left: .55rem; }
-    .sidebar a { border-radius: .375rem; color: var(--text); display: block; font-size: .875rem; line-height: 1.35rem; padding: .28rem .55rem; transition: background .15s ease, color .15s ease; }
-    .sidebar strong { color: var(--text); font-size: .875rem; font-weight: 500; line-height: 1.35rem; }
-    .sidebar li ul { border: 0; margin: .08rem 0 .14rem .55rem; padding-left: .5rem; }
-    .sidebar li ul li ul { margin-left: .5rem; padding-left: .5rem; }
-    .sidebar li ul li ul a { color: var(--muted); font-size: .875rem; }
-    .sidebar-nav > ul > li > p { margin: 0; padding: .28rem .55rem; }
-    .sidebar-nav > ul > li > p > strong { color: var(--text); font-size: .875rem; font-weight: 500; letter-spacing: 0; text-transform: none; }
-    .sidebar-nav hr { border: 0; border-top: 1px solid var(--border); margin: 1rem .55rem; }
-    .sidebar a:hover, .sidebar li.active > a { background: var(--hover); color: var(--heading); font-weight: 500; }
-    .markdown-section { margin: 0; max-width: 872px; padding: 4.5rem 3.5rem 7rem; color: var(--text); font-size: 1rem; line-height: 1.8; }
-    .markdown-section h1, .markdown-section h2, .markdown-section h3 { color: var(--heading); }
-    .markdown-section h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -.045em; line-height: 1.18; margin-bottom: 1rem; }
-    .markdown-section h2 { border: 0; font-size: 1.35rem; letter-spacing: -.025em; margin-top: 3.1rem; padding: 0; }
-    .markdown-section h3 { font-size: 1.05rem; margin-top: 2rem; }
-    .markdown-section a, .app-nav a { color: var(--theme-color); }
-    .markdown-section blockquote { background: var(--quote-bg); border: 0; border-radius: .75rem; color: var(--muted); margin: 1.75rem 0; padding: .85rem 1.1rem; }
-    .markdown-section code, .markdown-section pre, .markdown-section pre code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    .sidebar-nav ul { padding-left: 0; }
+    .sidebar-nav li { line-height: 1.45; }
+
+    .sidebar a,
+    .sidebar strong,
+    .sidebar-nav > ul > li > p {
+      border-radius: 5px;
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      padding: 6px 8px;
     }
-    .markdown-section :not(pre) > code { background: var(--code-bg); border: 0; border-radius: .35rem; color: #c2410c; font-size: .88em; padding: .15em .35em; }
-    html[data-theme="dark"] .markdown-section :not(pre) > code { color: #ff7b72; }
-    .markdown-section pre { background: var(--code-bg); border: 0; border-radius: .75rem; color: var(--code-text); padding: 1rem 1.15rem; }
-    .markdown-section pre code { background: transparent; color: var(--code-text); font-size: .88rem; line-height: 1.65; }
-    .markdown-section .token.comment, .markdown-section .token.prolog, .markdown-section .token.doctype, .markdown-section .token.cdata { color: #6e7781; }
-    .markdown-section .token.punctuation { color: var(--code-text); }
-    .markdown-section .token.property, .markdown-section .token.tag, .markdown-section .token.constant, .markdown-section .token.symbol, .markdown-section .token.deleted { color: #cf222e; }
-    .markdown-section .token.boolean, .markdown-section .token.number { color: #0550ae; }
-    .markdown-section .token.selector, .markdown-section .token.attr-name, .markdown-section .token.string, .markdown-section .token.char, .markdown-section .token.builtin, .markdown-section .token.inserted { color: #0a7a37; }
-    .markdown-section .token.operator, .markdown-section .token.entity, .markdown-section .token.url, .markdown-section .language-css .token.string { color: #6639ba; }
-    .markdown-section .token.atrule, .markdown-section .token.attr-value, .markdown-section .token.keyword { color: #cf222e; }
-    .markdown-section .token.function, .markdown-section .token.class-name { color: #8250df; }
-    html[data-theme="dark"] .markdown-section .token.property, html[data-theme="dark"] .markdown-section .token.tag, html[data-theme="dark"] .markdown-section .token.constant, html[data-theme="dark"] .markdown-section .token.symbol, html[data-theme="dark"] .markdown-section .token.deleted, html[data-theme="dark"] .markdown-section .token.atrule, html[data-theme="dark"] .markdown-section .token.attr-value, html[data-theme="dark"] .markdown-section .token.keyword { color: #ff7b72; }
-    html[data-theme="dark"] .markdown-section .token.boolean, html[data-theme="dark"] .markdown-section .token.number { color: #79c0ff; }
-    html[data-theme="dark"] .markdown-section .token.selector, html[data-theme="dark"] .markdown-section .token.attr-name, html[data-theme="dark"] .markdown-section .token.string, html[data-theme="dark"] .markdown-section .token.char, html[data-theme="dark"] .markdown-section .token.builtin, html[data-theme="dark"] .markdown-section .token.inserted { color: #a5d6ff; }
-    html[data-theme="dark"] .markdown-section .token.operator, html[data-theme="dark"] .markdown-section .token.entity, html[data-theme="dark"] .markdown-section .token.url, html[data-theme="dark"] .markdown-section .language-css .token.string { color: #d2a8ff; }
-    html[data-theme="dark"] .markdown-section .token.function, html[data-theme="dark"] .markdown-section .token.class-name { color: #d2a8ff; }
-    .note-meta { color: var(--muted); font-size: .86rem; margin: -.35rem 0 1.5rem; }
-    .note-list { display: grid; gap: .75rem; margin-top: 1.25rem; }
-    .note-card { background: var(--note-bg); border: 1px solid var(--border); border-radius: .85rem; color: inherit !important; display: grid; gap: .2rem; padding: 1rem 1.1rem; text-decoration: none; }
-    .note-card:hover { background: var(--hover); border-color: var(--border); text-decoration: none; }
-    .note-card-title { color: var(--heading); font-size: .98rem; font-weight: 600; }
-    .note-card-date { color: var(--muted); font-size: .8rem; }
-    .note-card-summary { color: var(--muted); font-size: .9rem; line-height: 1.55; }
-    .markdown-section table tr { border-top-color: var(--border); }
-    .markdown-section table td, .markdown-section table th { border-color: var(--border); }
-    .markdown-section table tr:nth-child(2n) { background: var(--surface); }
-    .search input { background: var(--page-bg); border-color: var(--border); color: var(--text); }
-    .search { margin: 0 .1rem; padding: 0; }
-    .search input { border: 1px solid var(--border) !important; border-radius: .65rem; box-sizing: border-box; font-size: .8rem; padding: .6rem .75rem; }
-    .search .results-panel { border-radius: 8px; background: var(--page-bg); border-color: var(--border); }
-    #theme-toggle {
-      position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 20; border: 1px solid var(--border);
-      border-radius: .7rem; background: var(--surface); color: var(--muted); cursor: pointer;
-      font: 500 .8rem/1 system-ui, sans-serif; padding: .6rem .75rem;
+
+    .sidebar strong,
+    .sidebar-nav > ul > li > p { color: var(--text); font-weight: 700; }
+
+    .sidebar li ul {
+      border-left: 1px solid var(--border);
+      margin: 3px 0 6px 10px;
+      padding-left: 8px;
     }
-    #theme-toggle:hover { background: var(--hover); color: var(--heading); }
-    .sidebar-toggle { display: none !important; }
+
+    .sidebar a:hover,
+    .sidebar li.active > a {
+      background: var(--surface);
+      color: var(--link);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .sidebar-nav hr {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 18px 8px;
+    }
+
+    .search {
+      border-bottom: 1px solid var(--border);
+      margin: 0 0 18px;
+      padding: 0 4px 18px;
+    }
+
+    .search input {
+      background: var(--surface);
+      border: 1px solid var(--border) !important;
+      border-radius: 5px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 11px;
+      outline: none;
+      padding: 9px 10px;
+    }
+
+    .search input:focus { border-color: var(--accent) !important; }
+    .search .results-panel {
+      background: var(--surface);
+      border-color: var(--border);
+      border-radius: 5px;
+    }
+
+    .content {
+      background: var(--page);
+      left: var(--sidebar-width);
+    }
+
+    .markdown-section {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.85;
+      margin: 0;
+      max-width: 940px;
+      padding: 54px 72px 96px;
+    }
+
+    .markdown-section h1,
+    .markdown-section h2,
+    .markdown-section h3 {
+      color: var(--heading);
+      font-weight: 700;
+      letter-spacing: -.045em;
+    }
+
+    .markdown-section h1 {
+      font-size: 32px;
+      line-height: 1.2;
+      margin: 0 0 24px;
+    }
+
+    .markdown-section h2 {
+      border: 0;
+      font-size: 19px;
+      line-height: 1.35;
+      margin: 50px 0 20px;
+      padding: 0 0 0 18px;
+      position: relative;
+    }
+
+    .markdown-section h2::before {
+      background: var(--accent);
+      bottom: 2px;
+      content: "";
+      left: 0;
+      position: absolute;
+      top: 2px;
+      width: 5px;
+    }
+
+    .markdown-section h3 {
+      font-size: 15px;
+      margin-top: 34px;
+    }
+
+    .markdown-section a { color: var(--link); font-weight: 500; }
+    .markdown-section a:hover { color: #f5bfcd; text-decoration: none; }
+
+    .markdown-section blockquote {
+      background: var(--surface);
+      border: 0;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      color: var(--text);
+      margin: 28px 0;
+      padding: 13px 20px;
+    }
+
+    .markdown-section blockquote p { margin: 0; }
+    .markdown-section hr { border-color: var(--border); }
+
+    .markdown-section code,
+    .markdown-section pre,
+    .markdown-section pre code {
+      font-family: inherit;
+    }
+
+    .markdown-section :not(pre) > code {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      font-size: .88em;
+      padding: .12em .35em;
+    }
+
+    .markdown-section pre {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+
+    .markdown-section pre code {
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .markdown-section table {
+      border-collapse: collapse;
+      display: table;
+      width: 100%;
+    }
+
+    .markdown-section table tr,
+    .markdown-section table tr:nth-child(2n) { background: transparent; }
+
+    .markdown-section table td,
+    .markdown-section table th {
+      border-color: var(--border);
+      padding: 10px 12px;
+    }
+
+    .markdown-section table th {
+      background: var(--surface);
+      color: var(--heading);
+      font-weight: 700;
+    }
+
+    .note-meta {
+      color: var(--muted);
+      font-size: 11px;
+      margin: -15px 0 24px;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .note-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text) !important;
+      display: grid;
+      gap: 4px;
+      padding: 16px 18px;
+      text-decoration: none;
+      transition: background .16s ease, border-color .16s ease;
+    }
+
+    .note-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
+    .note-card-title {
+      color: var(--heading);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .note-card-date { color: var(--accent); font-size: 11px; }
+    .note-card-summary { color: var(--muted); font-size: 12px; line-height: 1.65; }
+
+    .sidebar-toggle {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      border-radius: 0 6px 0 0;
+    }
+
+    .sidebar-toggle span { background-color: var(--accent); }
+
     @media screen and (min-width: 769px) {
-      .sidebar { left: var(--layout-offset); width: var(--sidebar-width); }
-      .content { left: calc(var(--layout-offset) + var(--sidebar-width)); }
+      .sidebar { left: max(0px, calc((100vw - 1640px) / 2)); }
+      .content { left: max(var(--sidebar-width), calc((100vw - 1640px) / 2 + var(--sidebar-width))); }
     }
+
     @media screen and (max-width: 768px) {
-      .markdown-section { margin: 0; padding: 2.5rem 1.25rem 5rem; }
-      .markdown-section h1 { font-size: 1.9rem; }
-      #theme-toggle { right: 1rem; bottom: 1rem; }
+      .markdown-section { padding: 40px 24px 72px; }
+      .markdown-section h1 { font-size: 27px; }
+      .sidebar { padding-top: 20px; }
     }
   </style>
 </head>
 <body>
   <div id="app">Loading…</div>
-  <button id="theme-toggle" type="button" aria-label="Switch colour theme"></button>
   <script>
-    (function () {
-      const storedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
-      const root = document.documentElement;
-      const button = document.getElementById('theme-toggle');
-      function applyTheme(nextTheme) {
-        root.dataset.theme = nextTheme;
-        button.textContent = nextTheme === 'dark' ? '☀ Light mode' : '☾ Dark mode';
-        button.setAttribute('aria-pressed', String(nextTheme === 'dark'));
-      }
-      applyTheme(theme);
-      button.addEventListener('click', function () {
-        const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('theme', nextTheme);
-        applyTheme(nextTheme);
-      });
-    })();
     window.$docsify = {
-      name: 'Working Notes',
+      name: 'Workspace',
       loadSidebar: true,
       subMaxLevel: 0,
       auto2top: true,
-      search: { placeholder: 'Search notes', noData: 'No results found.', depth: 3 }
+      search: {
+        placeholder: 'Search notes',
+        noData: 'No results found.',
+        depth: 3
+      }
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
