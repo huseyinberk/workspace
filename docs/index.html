@@ -287,6 +287,28 @@
 
     .sidebar-toggle span { background-color: var(--accent); }
 
+    .site-version {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .02em;
+      margin: 20px 4px 0;
+      padding: 16px 4px 0;
+    }
+
+    .site-version-label {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .site-version-value {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
     @media screen and (min-width: 769px) {
       .sidebar { left: max(0px, calc((100vw - 1640px) / 2)); }
       .content { left: max(var(--sidebar-width), calc((100vw - 1640px) / 2 + var(--sidebar-width))); }
@@ -313,6 +335,40 @@
         depth: 3
       }
     };
+  </script>
+
+  <script>
+    (function () {
+      function mountVersionBadge() {
+        var sidebar = document.querySelector('.sidebar');
+        if (!sidebar || document.getElementById('site-version')) return;
+        var badge = document.createElement('div');
+        badge.className = 'site-version';
+        badge.id = 'site-version';
+        badge.innerHTML = '<span class="site-version-label">Release</span><span class="site-version-value">Loading…</span>';
+        sidebar.appendChild(badge);
+
+        fetch('version.json')
+          .then(function (response) {
+            if (!response.ok) throw new Error('Version metadata is unavailable');
+            return response.json();
+          })
+          .then(function (metadata) {
+            var value = badge.querySelector('.site-version-value');
+            value.textContent = metadata.version;
+            badge.title = metadata.label || metadata.version;
+          })
+          .catch(function () {
+            badge.querySelector('.site-version-value').textContent = 'Development build';
+          });
+      }
+
+      new MutationObserver(mountVersionBadge).observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+      mountVersionBadge();
+    })();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
