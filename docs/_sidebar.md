@@ -13,3 +13,9 @@
   - **Engineering practice**
     - **Clean Code**
       - [Chapter 1](cleanCode/chapter1.md)
+
+---
+
+- **Project**
+  - [Adding notes](adding-notes.md)
+  - [Changelog](changelog.md)
